@@ -9,7 +9,8 @@
   "model": {
     "model_id": "surrey-nlp/gemma3_dialectal_cpt",
     "tokenizer_id": "google/gemma-3-4b-it",
-    "base_model_id": "google/gemma-3-4b-it"
+    "base_model_id": "google/gemma-3-4b-it",
+    "attn_implementation": "eager"
   },
   "data": {
     "hf_dataset": "argilla/ultrafeedback-binarized-preferences",

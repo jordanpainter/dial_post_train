@@ -9,7 +9,7 @@ import os
 import torch
 from accelerate import Accelerator
 from datasets import load_dataset, load_from_disk
-from transformers import AutoModelForCausalLM, AutoTokenizer, EarlyStoppingCallback
+from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer, EarlyStoppingCallback
 from transformers.trainer_utils import get_last_checkpoint
 from trl import SFTConfig, SFTTrainer
 
@@ -160,12 +160,36 @@ def main():
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 
-    model = AutoModelForCausalLM.from_pretrained(
-        model_id,
+    _model_kwargs = dict(
         low_cpu_mem_usage=True,
         return_dict=True,
         dtype=torch.bfloat16,
     )
+    # Allow per-config override of attention implementation
+    # (e.g. "eager" for Gemma 3 on containers with torch<2.6)
+    attn_impl = cfg["model"].get("attn_implementation")
+    if attn_impl:
+        _model_kwargs["attn_implementation"] = attn_impl
+
+    try:
+        model = AutoModelForCausalLM.from_pretrained(model_id, **_model_kwargs)
+    except ValueError as exc:
+        # CPT checkpoints sometimes have no model_type in config.json.
+        # Retry using the architecture config from base_model_id.
+        base_id = cfg["model"].get("base_model_id")
+        if "Unrecognized model" in str(exc) and base_id:
+            if is_main:
+                logger.warning(
+                    "No model_type found in %s — retrying with config from %s",
+                    model_id,
+                    base_id,
+                )
+            base_cfg = AutoConfig.from_pretrained(base_id)
+            model = AutoModelForCausalLM.from_pretrained(
+                model_id, config=base_cfg, **_model_kwargs
+            )
+        else:
+            raise
     if is_main:
         logger.info("Loaded model & tokenizer from %s", model_id)
 
