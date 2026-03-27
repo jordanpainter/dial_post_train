@@ -1,0 +1,56 @@
+{
+  "wandb": {
+    "project": "sft-test",
+    "api_key": "",
+    "notebook_name": "gemma-sft",
+    "log_model": "checkpoint"
+  },
+  "model": {
+    "model_id": "google/gemma-3-1b-it",
+    "tokenizer_id": "google/gemma-3-1b-it"
+  },
+  "data": {
+    "dataset_path": "./final",
+    "test_size": 0.1,
+    "seed": 2,
+    "output_dir": "./sft-gemma-all",
+    "remove_columns": [
+      "prompt",
+      "chosen",
+      "rejected",
+      "prompt_dialect_density",
+      "chosen_dialect_density"
+    ]
+  },
+  "trainer": {
+    "output_dir": ".",
+    "do_train": true,
+
+    "per_device_train_batch_size": 1,
+    "per_device_eval_batch_size": 1,
+    "gradient_accumulation_steps": 1,
+
+    "gradient_checkpointing": true,
+
+    "optim": "paged_adamw_8bit",
+    "learning_rate": 2e-5,
+    "max_length": 1024,
+
+    "logging_strategy": "steps",
+    "eval_strategy": "steps",
+    "save_strategy": "steps",
+    "eval_steps": 250,
+    "save_steps": 250,
+    "logging_steps": 50,
+
+    "num_train_epochs": 3,
+    "bf16": true,
+
+    "lr_scheduler_type": "cosine",
+    "warmup_ratio": 0.05,
+
+    "load_best_model_at_end": true,
+    "report_to": "wandb",
+    "run_name": "sft-gemma-all"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "os": "Linux-5.15.0-97-generic-x86_64-with-glibc2.31",
+  "python": "CPython 3.11.14",
+  "startedAt": "2026-02-12T19:37:30.448595Z",
+  "args": [
+    "-c",
+    "configs/gemma/sft-gemma3-4b-dialect.json"
+  ],
+  "program": "/home/diptesh/workspace/jordan-sa-dialects/dialect-llm-post-train/src/sft.py",
+  "codePath": "src/sft.py",
+  "codePathLocal": "src/sft.py",
+  "git": {
+    "remote": "github-jordan:jordanpainter/dialect-llm-post-train-cluster.git",
+    "commit": "ba6f284ab3b56e1076b72ab0983c0bf20898c57f"
+  },
+  "email": "jordanpainter01@gmail.com",
+  "root": "/home/diptesh/workspace/jordan-sa-dialects/dialect-llm-post-train",
+  "host": "AI-NLP01",
+  "executable": "/home/diptesh/anaconda3/envs/dial_posttrain/bin/python3.11",
+  "cpu_count": 18,
+  "cpu_count_logical": 36,
+  "gpu": "NVIDIA RTX A5000",
+  "gpu_count": 2,
+  "disk": {
+    "/": {
+      "total": "364632215552",
+      "used": "170065965056"
+    }
+  },
+  "memory": {
+    "total": "134758600704"
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA RTX A5000",
+      "memoryTotal": "25757220864",
+      "cudaCores": 8192,
+      "architecture": "Ampere",
+      "uuid": "GPU-a4cd146d-c59e-096b-3aba-d5ceef4b7f22"
+    },
+    {
+      "name": "NVIDIA RTX A5000",
+      "memoryTotal": "25757220864",
+      "cudaCores": 8192,
+      "architecture": "Ampere",
+      "uuid": "GPU-e80322f8-be76-acad-5714-b53b03368155"
+    }
+  ],
+  "cudaVersion": "12.4",
+  "writerId": "4my851lptbvbgw0rcsnhi2fmlajmztdf"
+}

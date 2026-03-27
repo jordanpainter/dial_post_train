@@ -1,0 +1,53 @@
+{
+  "wandb": {
+    "project": "sft-qwen-all",
+    "api_key": "API_KEY",  
+    "dir": "/g/data/po67/dipankar/wandb/logs/all-sft",
+    "cache_dir": "/g/data/po67/dipankar/wandb/cache/all-sft",
+    "config_dir": "/g/data/po67/dipankar/wandb/config/all-sft",
+    "data_dir": "/g/data/po67/dipankar/wandb/data/all-sft",
+    "artifact_dir": "/g/data/po67/dipankar/wandb/artifacts/all-sft",
+    "notebook_name": "dialect-qwen-sft",
+    "log_model": "final"
+  },
+  "model": {
+    "model_id": "/g/data/po67/dipankar/models/DiaLLM-Qwen3-8B-unaligned",
+    "tokenizer_id": "/g/data/po67/dipankar/models/DiaLLM-Qwen3-8B-unaligned"
+  },
+  "data": {
+    "dataset_path": "/g/data/po67/dipankar/dialect-llm/final",
+    "test_size": 0.1,
+    "seed": 2,
+    "output_dir": "/g/data/po67/dipankar/dialect-llm/models/sft-qwen-all",
+    "remove_columns": [
+      "prompt",
+      "chosen",
+      "rejected",
+      "prompt_dialect_density",
+      "chosen_dialect_density"
+    ]
+  },
+  "trainer": {
+    "do_train": true,
+    "output_dir": "/g/data/po67/dipankar/cache/all/",
+    "per_device_train_batch_size": 4,
+    "per_device_eval_batch_size": 4,
+    "gradient_checkpointing": true,
+    "optim": "paged_adamw_8bit",
+    "learning_rate": 2e-5,
+    "logging_strategy": "steps",
+    "eval_strategy": "steps",
+    "save_strategy": "steps",
+    "eval_steps":500,
+    "save_steps":500,
+    "logging_steps":500,
+    "num_train_epochs": 30,
+    "bf16": true,
+    "overwrite_output_dir": true,
+    "lr_scheduler_type": "cosine_with_restarts",
+    "warmup_ratio": 0.1,
+    "load_best_model_at_end": true,
+    "report_to": "wandb",
+    "run_name": "sft-qwen-all"
+  }
+}

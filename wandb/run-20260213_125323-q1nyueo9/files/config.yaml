@@ -1,0 +1,470 @@
+_name_or_path:
+    value: google/gemma-3-1b-it
+_sliding_window_pattern:
+    value: 6
+_wandb:
+    value:
+        cli_version: 0.24.2
+        e:
+            p6xf70dwgmumynyi4ub6jehbeesvw771:
+                args:
+                    - --config
+                    - configs/gemma/sft-gemma3-4b-dialect.json
+                codePath: src/sft.py
+                codePathLocal: src/sft.py
+                cpu_count: 18
+                cpu_count_logical: 36
+                cudaVersion: "12.4"
+                disk:
+                    /:
+                        total: "364632215552"
+                        used: "170129723392"
+                email: jordanpainter01@gmail.com
+                executable: /home/diptesh/anaconda3/envs/dial_posttrain/bin/python3
+                git:
+                    commit: 0bf6377a0e2b5d405700979ea02d0f8144b0cba1
+                    remote: github-jordan:jordanpainter/dialect-llm-post-train-cluster.git
+                gpu: NVIDIA RTX A5000
+                gpu_count: 2
+                gpu_nvidia:
+                    - architecture: Ampere
+                      cudaCores: 8192
+                      memoryTotal: "25757220864"
+                      name: NVIDIA RTX A5000
+                      uuid: GPU-a4cd146d-c59e-096b-3aba-d5ceef4b7f22
+                    - architecture: Ampere
+                      cudaCores: 8192
+                      memoryTotal: "25757220864"
+                      name: NVIDIA RTX A5000
+                      uuid: GPU-e80322f8-be76-acad-5714-b53b03368155
+                host: AI-NLP01
+                memory:
+                    total: "134758600704"
+                os: Linux-5.15.0-97-generic-x86_64-with-glibc2.31
+                program: /home/diptesh/workspace/jordan-sa-dialects/dialect-llm-post-train/src/sft.py
+                python: CPython 3.11.14
+                root: /home/diptesh/workspace/jordan-sa-dialects/dialect-llm-post-train
+                startedAt: "2026-02-13T12:53:23.720815Z"
+                writerId: p6xf70dwgmumynyi4ub6jehbeesvw771
+        m:
+            - "1": train/global_step
+              "6":
+                - 3
+              "7": []
+            - "2": '*'
+              "5": 1
+              "6":
+                - 1
+              "7": []
+        python_version: 3.11.14
+        t:
+            "1":
+                - 1
+                - 11
+                - 49
+                - 51
+                - 71
+                - 84
+                - 98
+            "2":
+                - 1
+                - 11
+                - 49
+                - 51
+                - 71
+                - 84
+                - 98
+            "3":
+                - 7
+                - 13
+                - 19
+                - 66
+            "4": 3.11.14
+            "5": 0.24.2
+            "6": 5.1.0
+            "8":
+                - 2
+            "9":
+                "1": transformers_trainer
+            "12": 0.24.2
+            "13": linux-x86_64
+accelerator_config:
+    value:
+        dispatch_batches: null
+        even_batches: true
+        gradient_accumulation_kwargs: null
+        non_blocking: false
+        split_batches: false
+        use_seedable_sampler: true
+activation_offloading:
+    value: false
+adam_beta1:
+    value: 0.9
+adam_beta2:
+    value: 0.999
+adam_epsilon:
+    value: 1e-08
+architectures:
+    value:
+        - Gemma3ForCausalLM
+assistant_only_loss:
+    value: false
+attention_bias:
+    value: false
+attention_dropout:
+    value: 0
+attn_logit_softcapping:
+    value: null
+auto_find_batch_size:
+    value: false
+average_tokens_across_devices:
+    value: true
+batch_eval_metrics:
+    value: false
+bf16:
+    value: true
+bf16_full_eval:
+    value: false
+bos_token_id:
+    value: 2
+cache_implementation:
+    value: hybrid
+chat_template_path:
+    value: null
+chunk_size_feed_forward:
+    value: 0
+completion_only_loss:
+    value: null
+data_seed:
+    value: null
+dataloader_drop_last:
+    value: false
+dataloader_num_workers:
+    value: 0
+dataloader_persistent_workers:
+    value: false
+dataloader_pin_memory:
+    value: true
+dataloader_prefetch_factor:
+    value: null
+dataset_kwargs:
+    value: null
+dataset_num_proc:
+    value: null
+dataset_text_field:
+    value: text
+ddp_backend:
+    value: null
+ddp_broadcast_buffers:
+    value: null
+ddp_bucket_cap_mb:
+    value: null
+ddp_find_unused_parameters:
+    value: null
+ddp_timeout:
+    value: 1800
+debug:
+    value: []
+deepspeed:
+    value: null
+disable_tqdm:
+    value: false
+do_eval:
+    value: true
+do_predict:
+    value: false
+do_train:
+    value: true
+dtype:
+    value: bfloat16
+enable_jit_checkpoint:
+    value: false
+eos_token:
+    value: <EOS_TOKEN>
+eos_token_id:
+    value: 1
+eval_accumulation_steps:
+    value: null
+eval_delay:
+    value: 0
+eval_do_concat_batches:
+    value: true
+eval_on_start:
+    value: false
+eval_packing:
+    value: null
+eval_steps:
+    value: 250
+eval_strategy:
+    value: steps
+eval_use_gather_object:
+    value: false
+final_logit_softcapping:
+    value: null
+fp16:
+    value: false
+fp16_full_eval:
+    value: false
+fsdp:
+    value: []
+fsdp_config:
+    value:
+        min_num_params: 0
+        xla: false
+        xla_fsdp_grad_ckpt: false
+        xla_fsdp_v2: false
+full_determinism:
+    value: false
+gradient_accumulation_steps:
+    value: 1
+gradient_checkpointing:
+    value: true
+gradient_checkpointing_kwargs:
+    value: null
+greater_is_better:
+    value: false
+group_by_length:
+    value: false
+head_dim:
+    value: 256
+hidden_activation:
+    value: gelu_pytorch_tanh
+hidden_size:
+    value: 1152
+hub_always_push:
+    value: false
+hub_model_id:
+    value: null
+hub_private_repo:
+    value: null
+hub_revision:
+    value: null
+hub_strategy:
+    value: every_save
+hub_token:
+    value: <HUB_TOKEN>
+id2label:
+    value:
+        "0": LABEL_0
+        "1": LABEL_1
+ignore_data_skip:
+    value: false
+include_for_metrics:
+    value: []
+include_num_input_tokens_seen:
+    value: "no"
+initializer_range:
+    value: 0.02
+intermediate_size:
+    value: 6912
+is_encoder_decoder:
+    value: false
+label_names:
+    value: null
+label_smoothing_factor:
+    value: 0
+label2id:
+    value:
+        LABEL_0: 0
+        LABEL_1: 1
+layer_types:
+    value:
+        - sliding_attention
+        - sliding_attention
+        - sliding_attention
+        - sliding_attention
+        - sliding_attention
+        - full_attention
+        - sliding_attention
+        - sliding_attention
+        - sliding_attention
+        - sliding_attention
+        - sliding_attention
+        - full_attention
+        - sliding_attention
+        - sliding_attention
+        - sliding_attention
+        - sliding_attention
+        - sliding_attention
+        - full_attention
+        - sliding_attention
+        - sliding_attention
+        - sliding_attention
+        - sliding_attention
+        - sliding_attention
+        - full_attention
+        - sliding_attention
+        - sliding_attention
+learning_rate:
+    value: 2e-05
+length_column_name:
+    value: length
+liger_kernel_config:
+    value: null
+load_best_model_at_end:
+    value: true
+local_rank:
+    value: -1
+log_level:
+    value: passive
+log_level_replica:
+    value: warning
+log_on_each_node:
+    value: true
+logging_dir:
+    value: null
+logging_first_step:
+    value: false
+logging_nan_inf_filter:
+    value: true
+logging_steps:
+    value: 50
+logging_strategy:
+    value: steps
+loss_type:
+    value: nll
+lr_scheduler_kwargs:
+    value: null
+lr_scheduler_type:
+    value: cosine
+max_grad_norm:
+    value: 1
+max_length:
+    value: 1024
+max_position_embeddings:
+    value: 32768
+max_steps:
+    value: -1
+metric_for_best_model:
+    value: loss
+model/num_parameters:
+    value: 999885952
+model_init_kwargs:
+    value: null
+model_type:
+    value: gemma3_text
+neftune_noise_alpha:
+    value: null
+num_attention_heads:
+    value: 4
+num_hidden_layers:
+    value: 26
+num_key_value_heads:
+    value: 1
+num_train_epochs:
+    value: 3
+optim:
+    value: paged_adamw_8bit
+optim_args:
+    value: null
+optim_target_modules:
+    value: null
+output_attentions:
+    value: false
+output_dir:
+    value: .
+output_hidden_states:
+    value: false
+packing:
+    value: false
+packing_strategy:
+    value: bfd
+pad_to_multiple_of:
+    value: null
+pad_token:
+    value: <PAD_TOKEN>
+pad_token_id:
+    value: 0
+padding_free:
+    value: false
+parallelism_config:
+    value: null
+per_device_eval_batch_size:
+    value: 1
+per_device_train_batch_size:
+    value: 1
+prediction_loss_only:
+    value: false
+problem_type:
+    value: null
+project:
+    value: huggingface
+push_to_hub:
+    value: false
+query_pre_attn_scalar:
+    value: 256
+remove_unused_columns:
+    value: true
+report_to:
+    value:
+        - wandb
+restore_callback_states_from_checkpoint:
+    value: false
+resume_from_checkpoint:
+    value: null
+return_dict:
+    value: true
+rms_norm_eps:
+    value: 1e-06
+rope_parameters:
+    value:
+        full_attention:
+            rope_theta: 1000000
+            rope_type: default
+        sliding_attention:
+            rope_theta: 10000
+            rope_type: default
+run_name:
+    value: sft-gemma-all
+save_on_each_node:
+    value: false
+save_only_model:
+    value: false
+save_steps:
+    value: 250
+save_strategy:
+    value: steps
+save_total_limit:
+    value: null
+seed:
+    value: 42
+shuffle_dataset:
+    value: false
+skip_memory_metrics:
+    value: true
+sliding_window:
+    value: 512
+sliding_window_pattern:
+    value: 6
+tf32:
+    value: null
+tie_word_embeddings:
+    value: true
+torch_compile:
+    value: false
+torch_compile_backend:
+    value: null
+torch_compile_mode:
+    value: null
+torch_empty_cache_steps:
+    value: null
+trackio_space_id:
+    value: trackio
+transformers_version:
+    value: 5.1.0
+use_bidirectional_attention:
+    value: false
+use_cache:
+    value: false
+use_cpu:
+    value: false
+use_liger_kernel:
+    value: false
+vocab_size:
+    value: 262144
+warmup_ratio:
+    value: 0.05
+warmup_steps:
+    value: 0.05
+weight_decay:
+    value: 0

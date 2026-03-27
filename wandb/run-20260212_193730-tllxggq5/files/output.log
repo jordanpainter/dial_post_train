@@ -1,0 +1,52 @@
+  0%|                                                                                                                          | 0/61683 [00:00<?, ?it/s]Traceback (most recent call last):
+  File "/home/diptesh/workspace/jordan-sa-dialects/dialect-llm-post-train/src/sft.py", line 264, in <module>
+    main()
+  File "/home/diptesh/workspace/jordan-sa-dialects/dialect-llm-post-train/src/sft.py", line 241, in main
+    trainer.train(resume_from_checkpoint=ckpt_to_resume)
+  File "/home/diptesh/anaconda3/envs/dial_posttrain/lib/python3.11/site-packages/transformers/trainer.py", line 2170, in train
+    return inner_training_loop(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/diptesh/anaconda3/envs/dial_posttrain/lib/python3.11/site-packages/transformers/trainer.py", line 2537, in _inner_training_loop
+    tr_loss_step = self.training_step(model, inputs, num_items_in_batch)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diptesh/anaconda3/envs/dial_posttrain/lib/python3.11/site-packages/trl/trainer/sft_trainer.py", line 1290, in training_step
+    return super().training_step(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diptesh/anaconda3/envs/dial_posttrain/lib/python3.11/site-packages/transformers/trainer.py", line 3838, in training_step
+    self.accelerator.backward(loss, **kwargs)
+  File "/home/diptesh/anaconda3/envs/dial_posttrain/lib/python3.11/site-packages/accelerate/accelerator.py", line 2852, in backward
+    loss.backward(**kwargs)
+  File "/home/diptesh/anaconda3/envs/dial_posttrain/lib/python3.11/site-packages/torch/_tensor.py", line 630, in backward
+    torch.autograd.backward(
+  File "/home/diptesh/anaconda3/envs/dial_posttrain/lib/python3.11/site-packages/torch/autograd/__init__.py", line 364, in backward
+    _engine_run_backward(
+  File "/home/diptesh/anaconda3/envs/dial_posttrain/lib/python3.11/site-packages/torch/autograd/graph.py", line 865, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.25 GiB. GPU 0 has a total capacity of 23.67 GiB of which 461.06 MiB is free. Including non-PyTorch memory, this process has 23.20 GiB memory in use. Of the allocated memory 22.49 GiB is allocated by PyTorch, and 294.18 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/diptesh/workspace/jordan-sa-dialects/dialect-llm-post-train/src/sft.py", line 264, in <module>
+[rank0]:     main()
+[rank0]:   File "/home/diptesh/workspace/jordan-sa-dialects/dialect-llm-post-train/src/sft.py", line 241, in main
+[rank0]:     trainer.train(resume_from_checkpoint=ckpt_to_resume)
+[rank0]:   File "/home/diptesh/anaconda3/envs/dial_posttrain/lib/python3.11/site-packages/transformers/trainer.py", line 2170, in train
+[rank0]:     return inner_training_loop(
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/diptesh/anaconda3/envs/dial_posttrain/lib/python3.11/site-packages/transformers/trainer.py", line 2537, in _inner_training_loop
+[rank0]:     tr_loss_step = self.training_step(model, inputs, num_items_in_batch)
+[rank0]:                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/diptesh/anaconda3/envs/dial_posttrain/lib/python3.11/site-packages/trl/trainer/sft_trainer.py", line 1290, in training_step
+[rank0]:     return super().training_step(*args, **kwargs)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/diptesh/anaconda3/envs/dial_posttrain/lib/python3.11/site-packages/transformers/trainer.py", line 3838, in training_step
+[rank0]:     self.accelerator.backward(loss, **kwargs)
+[rank0]:   File "/home/diptesh/anaconda3/envs/dial_posttrain/lib/python3.11/site-packages/accelerate/accelerator.py", line 2852, in backward
+[rank0]:     loss.backward(**kwargs)
+[rank0]:   File "/home/diptesh/anaconda3/envs/dial_posttrain/lib/python3.11/site-packages/torch/_tensor.py", line 630, in backward
+[rank0]:     torch.autograd.backward(
+[rank0]:   File "/home/diptesh/anaconda3/envs/dial_posttrain/lib/python3.11/site-packages/torch/autograd/__init__.py", line 364, in backward
+[rank0]:     _engine_run_backward(
+[rank0]:   File "/home/diptesh/anaconda3/envs/dial_posttrain/lib/python3.11/site-packages/torch/autograd/graph.py", line 865, in _engine_run_backward
+[rank0]:     return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]: torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.25 GiB. GPU 0 has a total capacity of 23.67 GiB of which 461.06 MiB is free. Including non-PyTorch memory, this process has 23.20 GiB memory in use. Of the allocated memory 22.49 GiB is allocated by PyTorch, and 294.18 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
