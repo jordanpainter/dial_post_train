@@ -13,6 +13,43 @@ from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer, EarlyS
 from transformers.trainer_utils import get_last_checkpoint
 from trl import SFTConfig, SFTTrainer
 
+def _patch_gemma3_masking_if_needed():
+    """
+    Gemma 3's forward() calls create_causal_mask() with or_mask_function /
+    and_mask_function kwargs that only exist in torch>=2.6.  On older torch
+    we drop those kwargs so the function falls back to a plain causal mask.
+    Sliding-window layers then use full attention — correct but slightly less
+    memory-efficient.  No-op if torch>=2.6.
+    """
+    torch_ver = tuple(int(x) for x in torch.__version__.split(".")[:2] if x.isdigit())
+    if torch_ver >= (2, 6):
+        return  # nothing to do
+
+    try:
+        import transformers.masking_utils as _mu
+
+        _orig = _mu.create_causal_mask
+
+        def _patched(*args, **kwargs):
+            kwargs.pop("or_mask_function", None)
+            kwargs.pop("and_mask_function", None)
+            return _orig(*args, **kwargs)
+
+        _mu.create_causal_mask = _patched
+
+        # Also replace the name in the gemma3 module namespace if already imported
+        try:
+            import transformers.models.gemma3.modeling_gemma3 as _g3
+            _g3.create_causal_mask = _patched
+        except Exception:
+            pass
+    except Exception:
+        pass
+
+
+_patch_gemma3_masking_if_needed()
+
+
 def format_fn(examples):
     """
     Convert prompt/chosen pairs into TRL chat 'messages' format.
