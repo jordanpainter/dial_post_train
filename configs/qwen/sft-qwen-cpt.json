@@ -7,7 +7,7 @@
     "log_model": "checkpoint"
   },
   "model": {
-    "model_id": "kadarsh22/galore_pretrained_qwen_64k",
+    "model_id": "jordanpainter/DiaLLM-Qwen3-8B-unaligned",
     "tokenizer_id": "Qwen/Qwen3-8B",
     "base_model_id": "Qwen/Qwen3-8B"
   },

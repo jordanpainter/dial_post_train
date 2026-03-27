@@ -15,9 +15,10 @@ from trl import SFTConfig, SFTTrainer
 
 def _patch_gemma3_masking_if_needed():
     """
-    Gemma 3's forward() calls create_causal_mask() with or_mask_function /
+    Gemma 3's forward() calls create_causal_mask() and
+    create_sliding_window_causal_mask() with or_mask_function /
     and_mask_function kwargs that only exist in torch>=2.6.  On older torch
-    we drop those kwargs so the function falls back to a plain causal mask.
+    we drop those kwargs so both functions fall back to plain masks.
     Sliding-window layers then use full attention — correct but slightly less
     memory-efficient.  No-op if torch>=2.6.
     """
@@ -28,19 +29,23 @@ def _patch_gemma3_masking_if_needed():
     try:
         import transformers.masking_utils as _mu
 
-        _orig = _mu.create_causal_mask
+        def _make_patched(orig):
+            def _patched(*args, **kwargs):
+                kwargs.pop("or_mask_function", None)
+                kwargs.pop("and_mask_function", None)
+                return orig(*args, **kwargs)
+            return _patched
 
-        def _patched(*args, **kwargs):
-            kwargs.pop("or_mask_function", None)
-            kwargs.pop("and_mask_function", None)
-            return _orig(*args, **kwargs)
+        _mu.create_causal_mask = _make_patched(_mu.create_causal_mask)
+        _mu.create_sliding_window_causal_mask = _make_patched(
+            _mu.create_sliding_window_causal_mask
+        )
 
-        _mu.create_causal_mask = _patched
-
-        # Also replace the name in the gemma3 module namespace if already imported
+        # Also replace in the gemma3 module namespace if already imported
         try:
             import transformers.models.gemma3.modeling_gemma3 as _g3
-            _g3.create_causal_mask = _patched
+            _g3.create_causal_mask = _mu.create_causal_mask
+            _g3.create_sliding_window_causal_mask = _mu.create_sliding_window_causal_mask
         except Exception:
             pass
     except Exception:
