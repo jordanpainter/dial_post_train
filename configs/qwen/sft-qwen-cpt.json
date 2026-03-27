@@ -9,7 +9,7 @@
   "model": {
     "model_id": "kadarsh22/galore_pretrained_qwen_64k",
     "tokenizer_id": "Qwen/Qwen3-8B",
-    "base_model_id": "Qwen/Qwen3-8B"
+    "base_model_id": "Qwen/Qwen3-8B-Instruct"
   },
   "data": {
     "hf_dataset": "argilla/ultrafeedback-binarized-preferences",

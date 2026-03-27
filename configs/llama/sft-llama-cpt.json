@@ -9,7 +9,7 @@
   "model": {
     "model_id": "dipteshkanojia/dialectal-llama-cpt-64001",
     "tokenizer_id": "meta-llama/Llama-3.1-8B",
-    "base_model_id": "meta-llama/Llama-3.1-8B"
+    "base_model_id": "meta-llama/Llama-3.1-8B-Instruct"
   },
   "data": {
     "hf_dataset": "argilla/ultrafeedback-binarized-preferences",

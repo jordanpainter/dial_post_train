@@ -142,6 +142,11 @@ def main():
                 )
             base_tok = AutoTokenizer.from_pretrained(base_id)
             tokenizer.chat_template = base_tok.chat_template
+            if not tokenizer.chat_template:
+                raise ValueError(
+                    f"base_model_id={base_id!r} also has no chat_template. "
+                    "Point base_model_id at an instruct/chat variant of the model."
+                )
         else:
             if is_main:
                 logger.warning(
