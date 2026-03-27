@@ -1,14 +1,15 @@
 {
   "wandb": {
     "project": "sft-qwen-cpt",
-    "entity": "YOUR_WANDB_ENTITY",
+    "entity": "jordanpainter",
     "api_key": "",
     "notebook_name": "sft-qwen-cpt",
     "log_model": "checkpoint"
   },
   "model": {
     "model_id": "kadarsh22/galore_pretrained_qwen_64k",
-    "tokenizer_id": "kadarsh22/galore_pretrained_qwen_64k"
+    "tokenizer_id": "Qwen/Qwen3-8B",
+    "base_model_id": "Qwen/Qwen3-8B"
   },
   "data": {
     "hf_dataset": "argilla/ultrafeedback-binarized-preferences",

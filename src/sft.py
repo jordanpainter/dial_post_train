@@ -132,7 +132,24 @@ def main():
 
     tokenizer = AutoTokenizer.from_pretrained(tokenizer_id)
 
-    # For CausalLM SFT, right padding is typically safer, but keep your original choice if desired.
+    # CPT checkpoints often lack a chat_template — borrow from base model if so
+    if not tokenizer.chat_template:
+        base_id = cfg["model"].get("base_model_id")
+        if base_id:
+            if is_main:
+                logger.info(
+                    "tokenizer.chat_template missing — loading from base model %s", base_id
+                )
+            base_tok = AutoTokenizer.from_pretrained(base_id)
+            tokenizer.chat_template = base_tok.chat_template
+        else:
+            if is_main:
+                logger.warning(
+                    "tokenizer.chat_template is not set and no base_model_id in config. "
+                    "Add 'base_model_id' to the model section to fix this."
+                )
+
+    # For CausalLM SFT, right padding is typically safer
     # Gemma tokenizers commonly use eos as pad.
     tokenizer.padding_side = "right"
     if tokenizer.pad_token is None:
@@ -142,7 +159,7 @@ def main():
         model_id,
         low_cpu_mem_usage=True,
         return_dict=True,
-        torch_dtype=torch.bfloat16,
+        dtype=torch.bfloat16,
     )
     if is_main:
         logger.info("Loaded model & tokenizer from %s", model_id)

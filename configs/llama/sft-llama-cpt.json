@@ -1,14 +1,15 @@
 {
   "wandb": {
     "project": "sft-llama-cpt",
-    "entity": "YOUR_WANDB_ENTITY",
+    "entity": "jordanpainter",
     "api_key": "",
     "notebook_name": "sft-llama-cpt",
     "log_model": "checkpoint"
   },
   "model": {
     "model_id": "dipteshkanojia/dialectal-llama-cpt-64001",
-    "tokenizer_id": "dipteshkanojia/dialectal-llama-cpt-64001"
+    "tokenizer_id": "meta-llama/Llama-3.1-8B",
+    "base_model_id": "meta-llama/Llama-3.1-8B"
   },
   "data": {
     "hf_dataset": "argilla/ultrafeedback-binarized-preferences",
