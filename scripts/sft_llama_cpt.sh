@@ -77,5 +77,5 @@ apptainer exec --nv "$SIF" bash -lc "
     python3 -c \"import torch; print('torch', torch.__version__, 'cuda', torch.cuda.is_available(), 'count', torch.cuda.device_count())\"
     python3 -c \"import os; print('CONFIG exists:', os.path.exists('$CONFIG'))\"
     python3 -c \"import os; print('WANDB_ENTITY=', os.environ.get('WANDB_ENTITY')); print('WANDB_PROJECT=', os.environ.get('WANDB_PROJECT')); print('WANDB_NAME=', os.environ.get('WANDB_NAME'))\"
-    accelerate launch --num_processes 1 -m src.sft -c '$CONFIG'
+    accelerate launch --num_processes 1 '$REPO/src/sft.py' -c '$CONFIG'
 "
