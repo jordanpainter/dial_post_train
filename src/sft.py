@@ -23,8 +23,11 @@ def format_fn(examples):
          extract the last assistant turn and pair it with the prompt.
       2. Legacy disk layout: chosen is a plain string.
     """
-    prompts = examples["prompt"]
-    chosen = examples["chosen"]
+    # Support both column name variants:
+    #   HF dataset: instruction / chosen_response
+    #   legacy disk: prompt / chosen
+    prompts = examples.get("instruction") or examples["prompt"]
+    chosen = examples.get("chosen_response") or examples["chosen"]
     messages = []
     for p, c in zip(prompts, chosen):
         if isinstance(c, list):
