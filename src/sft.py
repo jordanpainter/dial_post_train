@@ -260,8 +260,11 @@ def main():
 
     ds = ds.train_test_split(test_size=dd["test_size"], seed=dd["seed"])
 
-    # Convert to chat messages format
-    remove_cols = dd.get("remove_columns", [])
+    # Convert to chat messages format.
+    # If remove_columns is not explicitly set, remove all original columns so
+    # that only 'messages' remains — prevents TRL from picking the wrong
+    # tokenisation path when the dataset has a 'prompt' column.
+    remove_cols = dd.get("remove_columns") or list(ds["train"].column_names)
     train_ds = ds["train"].map(
         format_fn,
         remove_columns=remove_cols,
