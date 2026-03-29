@@ -1,0 +1,75 @@
+#!/bin/bash
+#SBATCH --job-name=sft_qwen_cpt_australian
+#SBATCH --partition=a100
+#SBATCH --gres=gpu:1
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=80G
+#SBATCH --time=48:00:00
+#SBATCH --output=/mnt/fast/nobackup/scratch4weeks/%u/logs/%x.%N.%j.out
+#SBATCH --error=/mnt/fast/nobackup/scratch4weeks/%u/logs/%x.%N.%j.err
+
+set -euo pipefail
+
+SCRATCH=/mnt/fast/nobackup/scratch4weeks/$USER
+SIF="$SCRATCH/dialect-grpo-qwen-cu121.sif"
+REPO="$SCRATCH/repos/dial_post_train"
+CONFIG="$REPO/configs/qwen/sft-qwen-cpt-australian.json"
+
+mkdir -p \
+  "$SCRATCH/logs" \
+  "$SCRATCH/tmp" \
+  "$SCRATCH/wandb" \
+  "$SCRATCH/hf/hub" \
+  "$SCRATCH/hf/datasets" \
+  "$SCRATCH/hf/transformers" \
+  "$SCRATCH/cache/sft-qwen-cpt-australian" \
+  "$SCRATCH/models/sft-qwen-cpt-australian"
+
+export HF_HOME="$SCRATCH/hf"
+export HUGGINGFACE_HUB_CACHE="$SCRATCH/hf/hub"
+export HF_DATASETS_CACHE="$SCRATCH/hf/datasets"
+export TRANSFORMERS_CACHE="$SCRATCH/hf/transformers"
+export HF_HUB_ENABLE_HF_TRANSFER=0
+export WANDB_DIR="$SCRATCH/wandb"
+export WANDB_ENTITY="${WANDB_ENTITY:-jordanpainter}"
+export WANDB_PROJECT="sft-australian"
+export WANDB_NAME="sft_qwen_cpt_australian"
+export WANDB_MODE="online"
+export WANDB_API_KEY="${WANDB_API_KEY:-}"
+export HF_TOKEN="${HF_TOKEN:-}"
+export TMPDIR="$SCRATCH/tmp"
+export TEMP="$SCRATCH/tmp"
+export TMP="$SCRATCH/tmp"
+export TOKENIZERS_PARALLELISM=false
+
+echo "HOST=$(hostname)"
+echo "SIF=$SIF"
+echo "REPO=$REPO"
+echo "CONFIG=$CONFIG"
+echo "WANDB_ENTITY=$WANDB_ENTITY"
+echo "WANDB_PROJECT=$WANDB_PROJECT"
+echo "WANDB_NAME=$WANDB_NAME"
+nvidia-smi
+
+apptainer exec --nv "$SIF" bash -lc "
+    set -euo pipefail
+    export HF_HOME='$HF_HOME'
+    export HUGGINGFACE_HUB_CACHE='$HUGGINGFACE_HUB_CACHE'
+    export HF_DATASETS_CACHE='$HF_DATASETS_CACHE'
+    export TRANSFORMERS_CACHE='$TRANSFORMERS_CACHE'
+    export HF_HUB_ENABLE_HF_TRANSFER='$HF_HUB_ENABLE_HF_TRANSFER'
+    export WANDB_DIR='$WANDB_DIR'
+    export WANDB_ENTITY='$WANDB_ENTITY'
+    export WANDB_PROJECT='$WANDB_PROJECT'
+    export WANDB_NAME='$WANDB_NAME'
+    export WANDB_MODE='$WANDB_MODE'
+    export WANDB_API_KEY='$WANDB_API_KEY'
+    export HF_TOKEN='$HF_TOKEN'
+    export TMPDIR='$TMPDIR'
+    export TEMP='$TEMP'
+    export TMP='$TMP'
+    export TOKENIZERS_PARALLELISM='$TOKENIZERS_PARALLELISM'
+    export PYTHONPATH='$REPO':\${PYTHONPATH:-}
+    cd '$REPO'
+    accelerate launch --num_processes 1 '$REPO/src/sft.py' -c '$CONFIG'
+"

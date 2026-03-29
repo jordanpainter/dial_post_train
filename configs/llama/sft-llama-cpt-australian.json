@@ -1,0 +1,47 @@
+{
+  "wandb": {
+    "project": "sft-australian",
+    "entity": "jordanpainter",
+    "api_key": "",
+    "notebook_name": "sft-australian",
+    "log_model": "false"
+  },
+  "model": {
+    "model_id": "dipteshkanojia/dialectal-llama-cpt-64001",
+    "tokenizer_id": "meta-llama/Llama-3.1-8B",
+    "base_model_id": "meta-llama/Llama-3.1-8B-Instruct"
+  },
+  "data": {
+    "hf_dataset": "jordanpainter/alignment-australian-final",
+    "hf_split": "train",
+    "test_size": 0.1,
+    "seed": 2,
+    "output_dir": "/mnt/fast/nobackup/scratch4weeks/$USER/models/sft-llama-cpt-australian",
+    "remove_columns": []
+  },
+  "trainer": {
+    "do_train": true,
+    "output_dir": "/mnt/fast/nobackup/scratch4weeks/$USER/cache/sft-llama-cpt-australian",
+    "per_device_train_batch_size": 4,
+    "per_device_eval_batch_size": 4,
+    "gradient_accumulation_steps": 1,
+    "gradient_checkpointing": true,
+    "optim": "paged_adamw_8bit",
+    "learning_rate": 2e-05,
+    "max_length": 1024,
+    "logging_strategy": "steps",
+    "eval_strategy": "steps",
+    "save_strategy": "steps",
+    "eval_steps": 500,
+    "save_steps": 500,
+    "logging_steps": 50,
+    "num_train_epochs": 3,
+    "bf16": true,
+    "overwrite_output_dir": true,
+    "lr_scheduler_type": "cosine",
+    "warmup_ratio": 0.05,
+    "load_best_model_at_end": true,
+    "report_to": "wandb",
+    "run_name": "sft_llama_cpt_australian"
+  }
+}
