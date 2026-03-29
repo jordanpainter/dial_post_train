@@ -282,6 +282,10 @@ def main():
     # Trainer config
     # -------------------------
     trainer_cfg = cfg["trainer"].copy()
+    # Expand env vars in paths (e.g. $USER, $SCRATCH) that the shell
+    # would normally resolve but Python's os.makedirs does not.
+    if "output_dir" in trainer_cfg:
+        trainer_cfg["output_dir"] = os.path.expandvars(trainer_cfg["output_dir"])
 
     # IMPORTANT:
     # transformers integration utils no longer accept None here.
@@ -361,7 +365,7 @@ def main():
     # -------------------------
     # Save final model/tokenizer (main process only)
     # -------------------------
-    out_dir = dd["output_dir"]
+    out_dir = os.path.expandvars(dd["output_dir"])
     if is_main:
         os.makedirs(out_dir, exist_ok=True)
         trainer.model.save_pretrained(out_dir)
